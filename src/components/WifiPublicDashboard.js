@@ -31,10 +31,12 @@ let longitude = ''
 let countPulse = 0
 let prevExcelLength = 0
 let excelDataArr = []
-let packetNumber = 0 
+let packetNumber = 0
 let locationL = `Latitude:, Longitude:`
 let isStartCopy
 let wifiCopy
+let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 // var dummyGraphData = []
 
 const WiFiPublicDashboard = (props) => {
@@ -89,8 +91,8 @@ const WiFiPublicDashboard = (props) => {
         }
         else if (graphtime == 4000) {
             timeShorts = '4s'
-        } 
-        else if (graphtime == 5000){
+        }
+        else if (graphtime == 5000) {
             timeShorts = '5s'
         }
         else if (graphtime == 6000) {
@@ -104,50 +106,50 @@ const WiFiPublicDashboard = (props) => {
         }
         else if (graphtime == 9000) {
             timeShorts = '9s'
-        } 
-        else if (graphtime == 10000){
+        }
+        else if (graphtime == 10000) {
             timeShorts = '10s'
         }
-        else if (graphtime == 20000){
+        else if (graphtime == 20000) {
             timeShorts = '20s'
         }
-         else if (graphtime == 30000){
+        else if (graphtime == 30000) {
             timeShorts = '30s'
         }
-        else if (graphtime == 40000){
+        else if (graphtime == 40000) {
             timeShorts = '40s'
         }
-        else if (graphtime == 50000){
+        else if (graphtime == 50000) {
             timeShorts = '50s'
         }
-        else if (graphtime == 60000){
+        else if (graphtime == 60000) {
             timeShorts = '1m'
         }
-        else if (graphtime == 120000){
+        else if (graphtime == 120000) {
             timeShorts = '2m'
         }
-        else if (graphtime == 180000){
+        else if (graphtime == 180000) {
             timeShorts = '3m'
         }
-        else if (graphtime == 240000){
+        else if (graphtime == 240000) {
             timeShorts = '4m'
         }
-        else if (graphtime == 300000){
+        else if (graphtime == 300000) {
             timeShorts = '5m'
         }
-        else if (graphtime == 360000){
+        else if (graphtime == 360000) {
             timeShorts = '6m'
         }
-        else if (graphtime == 420000){
+        else if (graphtime == 420000) {
             timeShorts = '7m'
         }
-        else if (graphtime == 480000){
+        else if (graphtime == 480000) {
             timeShorts = '8m'
         }
-        else if (graphtime == 540000){
+        else if (graphtime == 540000) {
             timeShorts = '9m'
         }
-        else if (graphtime == 600000){
+        else if (graphtime == 600000) {
             timeShorts = '10m'
         }
     }
@@ -170,9 +172,15 @@ const WiFiPublicDashboard = (props) => {
         return {};
     }
 
+    const getASCTime = (date) => {
+        let dateStr = `${days[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getFullYear()}`
+        return dateStr;
+    }
+
     const startServerHandler = () => {
         if (isStart == false) {
             let excelDate = new Date();
+            setCountArr([])
             let date = `${("0" + excelDate.getDate()).slice(-2)}-${("0" + (excelDate.getMonth() + 1)).slice(-2)}-${excelDate.getFullYear()}-${excelDate.getHours()}-${excelDate.getMinutes()}-${excelDate.getSeconds()}`;
             setFilenameDate(prev => date)
         }
@@ -183,7 +191,7 @@ const WiFiPublicDashboard = (props) => {
     function getGraphData(count, date) {
         setCountArr(countArr.push(...count))
         let counts = countArr;
-        console.log('Counts```~~~~~~------------',countArr);
+        console.log('Counts```~~~~~~------------', countArr);
         let sum = 0
         let dateStr
         let secondsStr = parseInt(date?.slice(-2))
@@ -224,25 +232,25 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 2000) {
-            if(counts.length >= 200) {
+            if (counts.length >= 200) {
                 // for (let i = 0; i < counts.length; i++) {
-                    let secondsStr = parseInt(date?.slice(-2))
-                    sum = counts.splice(0, 200).reduce(function (previousValue, currentValue) {
-                        return previousValue + currentValue;
-                    });
-                    dateStr = date.slice(0, -2) + secondsStr
-                    // console.log('llll', typeof (secondsStr))
-                    // secondsStr = secondsStr + 2
-                    arr.push({ "x": dateStr.slice(11), "y": sum })
+                let secondsStr = parseInt(date?.slice(-2))
+                sum = counts.splice(0, 200).reduce(function (previousValue, currentValue) {
+                    return previousValue + currentValue;
+                });
+                dateStr = date.slice(0, -2) + secondsStr
+                // console.log('llll', typeof (secondsStr))
+                // secondsStr = secondsStr + 2
+                arr.push({ "x": dateStr.slice(11), "y": sum })
                 // }
             }
         }
         else if (graphtime == 3000) {
-            if(counts.length >= 300) {
+            if (counts.length >= 300) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 300).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
-                }); 
+                });
                 dateStr = date.slice(0, -2) + secondsStr
                 // console.log('llll', typeof (secondsStr))
                 secondsStr = secondsStr + 3;
@@ -250,7 +258,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 4000) {
-            if(counts.length >= 400) {
+            if (counts.length >= 400) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 400).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -261,7 +269,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 5000) {
-            if(counts.length >= 500) {
+            if (counts.length >= 500) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 500).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -272,7 +280,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 6000) {
-            if(counts.length >= 600) {
+            if (counts.length >= 600) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 600).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -284,7 +292,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 7000) {
-            if(counts.length >= 700) {
+            if (counts.length >= 700) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 700).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -295,7 +303,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 8000) {
-            if(counts.length >= 800) {
+            if (counts.length >= 800) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 800).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -306,7 +314,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 9000) {
-            if(counts.length >= 900) {
+            if (counts.length >= 900) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 900).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -317,10 +325,10 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 10000) {
-            if(counts.length >= 1000) {
+            if (counts.length >= 1000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 1000).reduce(function (previousValue, currentValue) {
-                    return previousValue + currentValue;z
+                    return previousValue + currentValue; z
                 });
                 dateStr = date.slice(0, -2) + secondsStr
                 // console.log('llll', typeof (secondsStr))
@@ -328,7 +336,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 20000) {
-            if(counts.length >= 2000) {
+            if (counts.length >= 2000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 2000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -339,7 +347,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 30000) {
-            if(counts.length >= 3000) {
+            if (counts.length >= 3000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 3000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -350,7 +358,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 40000) {
-            if(counts.length >= 4000) {
+            if (counts.length >= 4000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 4000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -361,7 +369,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 50000) {
-            if(counts.length >= 5000) {
+            if (counts.length >= 5000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 5000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -372,7 +380,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 60000) {
-            if(counts.length >= 6000) {
+            if (counts.length >= 6000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 6000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -383,7 +391,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 120000) {
-            if(counts.length >= 12000) {
+            if (counts.length >= 12000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 12000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -394,7 +402,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 180000) {
-            if(counts.length >= 18000) {
+            if (counts.length >= 18000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 18000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -405,7 +413,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 240000) {
-            if(counts.length >= 24000) {
+            if (counts.length >= 24000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 24000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -416,7 +424,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 300000) {
-            if(counts.length >= 30000) {
+            if (counts.length >= 30000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 30000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -427,7 +435,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 360000) {
-            if(counts.length >= 36000) {
+            if (counts.length >= 36000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 36000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -436,9 +444,9 @@ const WiFiPublicDashboard = (props) => {
                 // console.log('llll', typeof (secondsStr))
                 arr.push({ "x": dateStr.slice(11), "y": sum })
             }
-        } 
+        }
         else if (graphtime == 420000) {
-            if(counts.length >= 42000) {
+            if (counts.length >= 42000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 42000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -449,7 +457,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 480000) {
-            if(counts.length >= 48000) {
+            if (counts.length >= 48000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 48000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -460,7 +468,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 540000) {
-            if(counts.length >= 54000) {
+            if (counts.length >= 54000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 54000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -471,7 +479,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 600000) {
-            if(counts.length >= 60000) {
+            if (counts.length >= 60000) {
                 let secondsStr = parseInt(date?.slice(-2))
                 sum = counts.splice(0, 60000).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
@@ -486,11 +494,13 @@ const WiFiPublicDashboard = (props) => {
 
     async function getData() {
         let dummyDataPoints
+        let date = getASCTime(new Date())
+        console.log('ASC Time ----------------->', date)
         // setSeconds(seconds + 1)
         // const response = await fetch(`http://localhost:4000/posts/`)
-        const response = await fetch(`http://192.168.4.1:80/yelsons`,{
-            headers:{
-              'Date': `${new Date()}`,
+        const response = await fetch(`http://192.168.4.1:80/yelsons`, {
+            headers: {
+                'Date': date,
             }
         })
         const respData = await response.json()
@@ -555,7 +565,7 @@ const WiFiPublicDashboard = (props) => {
             // setGraphData(dummyGraphData)
 
         }
-         else {
+        else {
             setStatus('failed')
             console.log('no data from await')
             setApiheader(0);
@@ -649,7 +659,7 @@ const WiFiPublicDashboard = (props) => {
                     <div>
                         <WifiIcon sx={{ color: '#1E90FF' }} />&nbsp;Wi-Fi-Based Logger
                     </div>
-                     <div>
+                    <div>
                         <img src={logo} alt='y' height={50} />
                     </div>
                 </header>
