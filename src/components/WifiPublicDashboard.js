@@ -198,7 +198,7 @@ const WiFiPublicDashboard = (props) => {
         let arr = [];
 
         if (graphtime == 10) {
-            for (let i = 0; i < count.length; i++) {
+            if (counts.length) {
                 sum = count.splice(0, 1).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
@@ -208,7 +208,7 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 100) {
-            for (let i = 0; i < count.length; i++) {
+            if (counts.length >= 10) {
                 sum = count?.splice(0, 10).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
@@ -218,7 +218,9 @@ const WiFiPublicDashboard = (props) => {
             }
         }
         else if (graphtime == 1000) {
-            for (let i = 0; i < count.length; i++) {
+            // for (let i = 0; i < count.length; i++) {
+            if (counts.length >= 100) {
+
                 sum = count.splice(0, 100).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
