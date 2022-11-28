@@ -199,7 +199,7 @@ const WiFiPublicDashboard = (props) => {
 
         if (graphtime == 10) {
             if (counts.length) {
-                sum = count.splice(0, 1).reduce(function (previousValue, currentValue) {
+                sum = counts.splice(0, 1).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
                 // dateStr = date.slice(0, -2) + secondsStr
@@ -209,7 +209,7 @@ const WiFiPublicDashboard = (props) => {
         }
         else if (graphtime == 100) {
             if (counts.length >= 10) {
-                sum = count?.splice(0, 10).reduce(function (previousValue, currentValue) {
+                sum = counts.splice(0, 10).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
                 // dateStr = date.slice(0, -2) + secondsStr
@@ -221,7 +221,7 @@ const WiFiPublicDashboard = (props) => {
             // for (let i = 0; i < count.length; i++) {
             if (counts.length >= 100) {
 
-                sum = count.splice(0, 100).reduce(function (previousValue, currentValue) {
+                sum = counts.splice(0, 100).reduce(function (previousValue, currentValue) {
                     return previousValue + currentValue;
                 });
                 dateStr = date.slice(0, -2) + secondsStr
