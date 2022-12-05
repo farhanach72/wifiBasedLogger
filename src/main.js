@@ -16,7 +16,7 @@ app.disableHardwareAcceleration()
 require("./components/wifi");
 
 var nameOfWifi;
-setInterval( () => {
+setInterval(() => {
   // try {
   //   const name = await wifiName()
   //   nameOfWifi = name
@@ -26,7 +26,7 @@ setInterval( () => {
   // }
   wifiName().then(name => {
     nameOfWifi = name
-  }).catch((err)=>{
+  }).catch((err) => {
     // console.log('errrrrrrrrrr',err)
     nameOfWifi = 'Disconnected'
 
@@ -76,6 +76,7 @@ const createWindow = () => {
       // devTools: false,
       webSecurity: false,
       preload: path.join(__dirname, "preload.js"),
+      icon: path.join(__dirname, "logo.ico"),
     },
   });
   // mainWindow.setMenuBarVisibility(false)

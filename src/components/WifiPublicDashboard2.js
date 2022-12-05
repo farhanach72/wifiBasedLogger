@@ -16,7 +16,7 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import './WiFiPublicDashboard.css';
 // import { CSVLink } from 'react-csv';
 // import { ExportCSV } from './ExportCSV';
-import logo from '../logo.png'
+import icon from '../icon.png'
 import { dataAction } from '../store/reducers/dataReducer';
 
 const { ipcRenderer } = window.require("electron");
@@ -268,7 +268,7 @@ const WiFiPublicDashboard1 = (props) => {
                         <WifiIcon sx={{ color: '#1E90FF' }} />&nbsp;Leakage Detection System
                     </div>
                     <div>
-                        <img src={logo} alt='y' height={50} />
+                        <img src={icon} alt='y' height={50} />
                     </div>
                 </header>
             </div>

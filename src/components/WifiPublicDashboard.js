@@ -16,7 +16,7 @@ import {
 import WifiIcon from '@mui/icons-material/Wifi';
 import './WiFiPublicDashboard.css';
 // import { CSVLink } from 'react-csv'; 
-import logo from '../logo.png';
+import icon from '../icon.png';
 import { dataAction } from '../store/reducers/dataReducer';
 const { ipcRenderer } = window.require("electron");
 
@@ -173,7 +173,7 @@ const WiFiPublicDashboard = (props) => {
     }
 
     const getASCTime = (date) => {
-        let dateStr = `${days[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getFullYear()}`
+        let dateStr = `${days[date.getDay()]} ${months[date.getMonth()]}  ${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getFullYear()}`
         return dateStr;
     }
 
@@ -497,7 +497,7 @@ const WiFiPublicDashboard = (props) => {
     async function getData() {
         let dummyDataPoints
         let date = getASCTime(new Date())
-        console.log('ASC Time ----------------->', date)
+        // console.log('ASC Time ----------------->', date)
         // setSeconds(seconds + 1)
         // const response = await fetch(`http://localhost:4000/posts/`)
         const response = await fetch(`http://192.168.4.1:80/yelsons`, {
@@ -662,7 +662,7 @@ const WiFiPublicDashboard = (props) => {
                         <WifiIcon sx={{ color: '#1E90FF' }} />&nbsp;Wi-Fi-Based Logger
                     </div>
                     <div>
-                        <img src={logo} alt='y' height={50} />
+                        <img src={icon} alt='y' height={50} />
                     </div>
                 </header>
             </div>

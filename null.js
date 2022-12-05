@@ -16,7 +16,7 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import './WiFiPublicDashboard.css';
 // import { CSVLink } from 'react-csv';
 // import { ExportCSV } from './ExportCSV';
-import logo from '../logo.png'
+import icon from '../icon.png'
 import { dataAction } from '../store/reducers/dataReducer';
 
 const { ipcRenderer } = window.require("electron");
@@ -247,14 +247,14 @@ const WiFiPublicDashboard1 = (props) => {
             setStatus('success')
             // console.log('checking pulse',countStored)
             // if (pulse !== -1) {
-                //     dispatch(dataAction.getCount({ count: pulse }))
-                // }
-                
-                
-                setPacketNumber(22)
-                
-                
-                if (respData[0].packetnumber !== packetNumber) {
+            //     dispatch(dataAction.getCount({ count: pulse }))
+            // }
+
+
+            setPacketNumber(22)
+
+
+            if (respData[0].packetnumber !== packetNumber) {
                 setCountArr(prev => respData[0].Count)
                 dispatch(dataAction.getData({
                     data: {
@@ -325,7 +325,7 @@ const WiFiPublicDashboard1 = (props) => {
 
 
 
-    
+
 
     // dispatch(dataAction.getExcelData({ device_ID, timeShorts, UTCtoISTDate, countPulse, locationL, battery }))
     // console.log('ccccccccccccccccccc',newData1)
@@ -376,7 +376,7 @@ const WiFiPublicDashboard1 = (props) => {
             // console.log('inside')
             // const timer = setInterval(()=>{console.log('1000'),5000})
             // const timer = setInterval(() => { getData() }, 1000)
-            
+
             return () => {
                 // clearInterval(setSecondsTimer)
                 clearInterval(getDataTimer)
@@ -401,7 +401,7 @@ const WiFiPublicDashboard1 = (props) => {
                         <WifiIcon sx={{ color: '#1E90FF' }} />&nbsp;Leakage Detection System
                     </div>
                     <div>
-                        <img src={logo} alt='y' height={50} />
+                        <img src={icon} alt='y' height={50} />
                     </div>
                 </header>
             </div>
