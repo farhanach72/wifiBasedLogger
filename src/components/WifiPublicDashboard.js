@@ -30,7 +30,7 @@ let latitude = "";
 let longitude = "";
 let countPulse = 0;
 let prevExcelLength = 0;
-let excelDataArr = [];
+let excelDataArr = {};
 let packetNumber = 0;
 let locationL = `Latitude:, Longitude:`;
 let isStartCopy;
@@ -90,13 +90,113 @@ const WiFiPublicDashboard = (props) => {
   const graphStateData = useSelector((state) => state.data.graph);
   const dispatch = useDispatch();
 
-  // graphDataCopy = [...graphData]
-  // UTCtoISTDate = data.TimeStamp || 'DD/MM/YYYY'
-  // console.log('checking date UTC',UTCtoISTDate)0
-  // device_ID = parseInt(data.device_ID) || 0
-  // StepTime = data.StepTime || graphtime
-  // location = data.location
-  // battery = parseInt(data.battery) || 0
+  const cycleInfo = [
+    {
+      timeLabel: "10ms",
+      timeShort: 10
+    },
+    {
+      timeLabel: "100ms",
+      timeShort: 100
+    },
+    {
+      timeLabel: "1s",
+      timeShort: 1000
+    },
+    {
+      timeLabel: "2s",
+      timeShort: 2000
+    },
+    {
+      timeLabel: "3s",
+      timeShort: 3000
+    },
+    {
+      timeLabel: "4s",
+      timeShort: 4000
+    },
+    {
+      timeLabel: "5s",
+      timeShort: 5000
+    },
+    {
+      timeLabel: "6s",
+      timeShort: 6000
+    },
+    {
+      timeLabel: "7s",
+      timeShort: 7000
+    },
+    {
+      timeLabel: "8s",
+      timeShort: 8000
+    },
+    {
+      timeLabel: "9s",
+      timeShort: 9000
+    },
+    {
+      timeLabel: "10s",
+      timeShort: 10000
+    },
+    {
+      timeLabel: "20s",
+      timeShort: 20000
+    },
+    {
+      timeLabel: "30s",
+      timeShort: 30000
+    },
+    {
+      timeLabel: "40s",
+      timeShort: 40000
+    },
+    {
+      timeLabel: "50s",
+      timeShort: 50000
+    },
+    {
+      timeLabel: "1m",
+      timeShort: 60000
+    },
+    {
+      timeLabel: "2m",
+      timeShort: 120000
+    },
+    {
+      timeLabel: "3m",
+      timeShort: 240000
+    },
+    {
+      timeLabel: "4m",
+      timeShort: 360000
+    },
+    {
+      timeLabel: "5m",
+      timeShort: 420000
+    },
+    {
+      timeLabel: "6m",
+      timeShort: 480000
+    },
+    {
+      timeLabel: "7m",
+      timeShort: 540000
+    },
+    {
+      timeLabel: "8m",
+      timeShort: 600000
+    },
+    {
+      timeLabel: "9m",
+      timeShort: 660000
+    },
+    {
+      timeLabel: "10m",
+      timeShort: 720000
+    },
+  ]
+
   isStartCopy = isStart;
   wifiCopy = wifi;
   if (isStart == true) {
@@ -592,13 +692,13 @@ const WiFiPublicDashboard = (props) => {
           UTCtoISTDate = dummyDataPoints[i].x;
           // console.log('checking date',UTCtoISTDate)
           countPulse = dummyDataPoints[i].y;
-          excelDataArr.push({
+          excelDataArr = {
             device_ID,
             timeShorts,
             UTCtoISTDate,
             countPulse,
             battery,
-          });
+          };
         }
         // console.log('dummyDataPoints', dummyDataPoints)
         setGraphData(dummyGraphData);
@@ -654,13 +754,14 @@ const WiFiPublicDashboard = (props) => {
         getData();
         // prevExcelLength = excelDataArr.length
         ipcRenderer.send("sendExcelData", excelDataArr, filenameDate);
+        excelDataArr = {}
         // setWifiName(ipcRenderer.sendSync('getWifiName', ''))
         // console.log('getData')
       }, 250);
       // stopCycle()
     } else {
       setIsStart(false);
-      excelDataArr = [];
+      excelDataArr = {};
       stopCycleTimer = setInterval(() => {
         setWifiName(ipcRenderer.sendSync("getWifiName", ""));
         if (isStartCopy == true && wifiCopy == "Disconnected") {
@@ -742,34 +843,12 @@ const WiFiPublicDashboard = (props) => {
                 {...getDisabled(isStart)}
                 inputProps={{ "aria-label": "Without label" }}
               >
-                <MenuItem className="menuItem-text" value={10}>
-                  10 ms
-                </MenuItem>
-                <MenuItem value={100}>100 ms</MenuItem>
-                <MenuItem value={1000}>1s</MenuItem>
-                <MenuItem value={2000}>2s</MenuItem>
-                <MenuItem value={3000}>3s</MenuItem>
-                <MenuItem value={4000}>4s</MenuItem>
-                <MenuItem value={5000}>5s</MenuItem>
-                <MenuItem value={6000}>6s</MenuItem>
-                <MenuItem value={7000}>7s</MenuItem>
-                <MenuItem value={8000}>8s</MenuItem>
-                <MenuItem value={9000}>9s</MenuItem>
-                <MenuItem value={10000}>10s</MenuItem>
-                <MenuItem value={20000}>20s</MenuItem>
-                <MenuItem value={30000}>30s</MenuItem>
-                <MenuItem value={40000}>40s</MenuItem>
-                <MenuItem value={50000}>50s</MenuItem>
-                <MenuItem value={60000}>1m</MenuItem>
-                <MenuItem value={120000}>2m</MenuItem>
-                <MenuItem value={180000}>3m</MenuItem>
-                <MenuItem value={240000}>4m</MenuItem>
-                <MenuItem value={300000}>5m</MenuItem>
-                <MenuItem value={360000}>6m</MenuItem>
-                <MenuItem value={420000}>7m</MenuItem>
-                <MenuItem value={480000}>8m</MenuItem>
-                <MenuItem value={560000}>9m</MenuItem>
-                <MenuItem value={600000}>10m</MenuItem>
+                {
+                  cycleInfo.map((ele, i) =>
+                    <MenuItem key={i} className="menuItem-text" value={ele.timeShort}>
+                      {ele.timeLabel}
+                    </MenuItem>)
+                }
               </Select>
             </FormControl>
           </div>

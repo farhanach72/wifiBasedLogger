@@ -30,14 +30,14 @@ const writeToExcel = async (excelDataArr, filenameDate) => {
         //     console.log('current length',excelDataArr.length)
         // }
 
-        excelDataArr?.map(el => {
-            console.log('checking el =>', el)
-            wifiWorksheet.addRow([el.device_ID, el.timeShorts, el.UTCtoISTDate, el.countPulse, el.battery]);
-            wifiWorksheet.eachRow(function (row, rowNumber) {
-                row.eachCell(function (cell, colNumber) {
-                    cell.alignment = { vertical: 'middle', horizontal: 'center' };
-                });
+        // excelDataArr?.map(el => {
+        //     console.log('checking el =>', el)
+        wifiWorksheet.addRow([excelDataArr.device_ID, excelDataArr.timeShorts, excelDataArr.UTCtoISTDate, excelDataArr.countPulse, excelDataArr.battery]);
+        wifiWorksheet.eachRow(function (row, rowNumber) {
+            row.eachCell(function (cell, colNumber) {
+                cell.alignment = { vertical: 'middle', horizontal: 'center' };
             });
+            // });
             // console.log('checking el', el)
 
         })
